@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import  Button  from "@mui/material/Button"
 import  TextField  from "@mui/material/TextField"
     import { FormControlLabel, Switch } from "@mui/material"
@@ -6,35 +6,47 @@ import FormGroup from "@mui/material/FormGroup"
 
 function FormSignUp(){
 
-     const [name, setName] = useState("HARLAND")   
-    useEffect(()=>{
-        console.log("name cambio",name)
-    },[name])
-    
-    return (<form>
+     const [name, setName] = useState("")   
+     const [lastName, setLastName] =  useState("")
+     const [email, setEmail]= useState("")
+    const [prom, setProm]= useState(true)
+    const [nov, setNov] = useState(false)
+    return (
+    <form onSubmit={(e)=>{
+        e.preventDefault()
+        console.log({name,lastName,email,prom,nov})
+    }}>
         <label >Nombres</label>
         <TextField type="text" id="name" label="Nombres"  variant="outlined" margin="normal" fullWidth
-            onChange={(e)=>{
-              
-                setName(e.target.value)
-               
-            }}
+            onChange={(e)=>setName(e.target.value)}
             value={name}
         />
         <label >Apellidos</label>
-        <TextField type="text" id="lastname" label="Apellidos"  variant="outlined" margin="normal" fullWidth/>
+        <TextField type="text" id="lastname" label="Apellidos"  variant="outlined" margin="normal" fullWidth
+            onChange={(e)=> setLastName(e.target.value)}
+            value={lastName}
+        />
         <label >Correo electronico</label>
-        <TextField type="text" id="email" label="Email"  variant="outlined" margin="normal" fullWidth/>      
+        <TextField type="text" id="email" label="Email"  variant="outlined" margin="normal" fullWidth
+            onChange={(e)=> setEmail(e.target.value)}
+            value={email}
+        />      
         <FormGroup>
-            <FormControlLabel control={<Switch  />} label="Promociones"/>
+            <FormControlLabel control={<Switch 
+                checked={prom}
+                onChange={(e)=>setProm(e.target.checked)}
+            />} label="Promociones"/>
 
-            <FormControlLabel control={<Switch  />} label="Novedades"/>
+            <FormControlLabel control={<Switch 
+                    checked={nov}
+                    onChange={(e)=>setNov(e.target.checked)}
+            />} label="Novedades"/>
 
         </FormGroup>
         
         
         
-        <Button variant="contained">Registrarse</Button>
+        <Button variant="contained" type="submit">Registrarse</Button>
         </form>)
 }
 
