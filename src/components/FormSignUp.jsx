@@ -3,9 +3,10 @@ import  Button  from "@mui/material/Button"
 import  TextField  from "@mui/material/TextField"
     import { FormControlLabel, Switch } from "@mui/material"
 import FormGroup from "@mui/material/FormGroup"
+import {FormControl} from "@mui/material"
 
-function FormSignUp(){
-
+function FormSignUp({handleSubmit}){
+       
      const [name, setName] = useState("")   
      const [lastName, setLastName] =  useState("")
      const [email, setEmail]= useState("")
@@ -14,7 +15,7 @@ function FormSignUp(){
     return (
     <form onSubmit={(e)=>{
         e.preventDefault()
-        console.log({name,lastName,email,prom,nov})
+        handleSubmit({name,lastName,email,prom,nov})
     }}>
         <label >Nombres</label>
         <TextField type="text" id="name" label="Nombres"  variant="outlined" margin="normal" fullWidth
