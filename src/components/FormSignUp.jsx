@@ -12,6 +12,22 @@ function FormSignUp({handleSubmit}){
      const [email, setEmail]= useState("")
     const [prom, setProm]= useState(true)
     const [nov, setNov] = useState(false)
+    const [errors, setErrors] = useState({
+        name: {error:false,
+                message: "Deben ser al menos 3 caracteres"
+        },
+    })
+
+    function validarNombre(nombre){
+        if(nombre.length>=3){
+            return {name: {error: false, message:""}}
+             
+        }else {
+            return {name:{error: true, message: "Deben ser al menos 3 caracteres"}}
+        }
+        }
+
+    
     return (
     <form onSubmit={(e)=>{
         e.preventDefault()
@@ -21,6 +37,11 @@ function FormSignUp({handleSubmit}){
         <TextField type="text" id="name" label="Nombres"  variant="outlined" margin="normal" fullWidth
             onChange={(e)=>setName(e.target.value)}
             value={name}
+            error={errors.name.error}
+            helperText={errors.name.error ?  errors.name.message: ""}
+            onBlur={(e)=> {
+                setErrors(validarNombre(e.target.value))
+            }}
         />
         <label >Apellidos</label>
         <TextField type="text" id="lastname" label="Apellidos"  variant="outlined" margin="normal" fullWidth
@@ -31,6 +52,7 @@ function FormSignUp({handleSubmit}){
         <TextField type="text" id="email" label="Email"  variant="outlined" margin="normal" fullWidth
             onChange={(e)=> setEmail(e.target.value)}
             value={email}
+            
         />      
         <FormGroup>
             <FormControlLabel control={<Switch 
